@@ -8,7 +8,9 @@ describe('Lodgify Pricing', () =>{
     })
 
     it('Verify Yearly Plan with 50 rentals', () => {
-        pricingPage.fillForm('5'0)
+        pricingPage.fillForm('50')
+        pricingPage.viewPlanStarter()
+        pricingPage.viewPlanPro()
         
     });
 })
