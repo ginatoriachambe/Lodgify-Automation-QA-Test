@@ -7,13 +7,17 @@ class PricingPage{
     }
 
     fillForm(rentals){
-        cy.get('input[id="scroll-prop-plan"]').type('{backspace}' + rentals)  
+        cy.get('input[id="scroll-prop-plan"]').type('{backspace}' + rentals)
+        cy.get('.btn-group.btn-group-lg.row.row-xs')
+        .find('.col-md-4.col-xs-12.btn.active') 
+        .contains('Yearly')
     }
 
     viewPlan(element, planType, price){
+        
         cy.get(element).find('h6.plan-name').contains(planType).then(($item) => {
             cy.get($item.parent()).find('.plan-price.text-dark')
-            .find('.total-sum').should('have.text', price)
+            .find('.total-sum').should('have.text', price).click()
         })
     }
 
@@ -33,6 +37,25 @@ class PricingPage{
             }
         })
     }
+
+    viewCurrency_pre(currency, currencySymbol){
+
+        cy.get('select.price-currency-select.form-control.input-sm.form-control-bord-round').select(currency)
+        cy.get('.currency.currency-symbol.currency-symbol-pre').each((item, index) => {
+            expect(Cypress.$(item).text()).to.eq(currencySymbol)
+        })
+
+    }
+
+    viewCurrency_post(currency, currencySymbol){
+
+        cy.get('select.price-currency-select.form-control.input-sm.form-control-bord-round').select(currency)
+        cy.get('.currency.currency-symbol.currency-symbol-post').each((item, index) => {
+            expect(Cypress.$(item).text()).to.eq(currencySymbol)
+        })
+
+    }
+
 
     
 }
